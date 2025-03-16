@@ -4,6 +4,9 @@ Priority: extra
 Maintainer: @MAINTAINER@ <@MAINTAINER_EMAIL@>
 Build-Depends:
  debhelper (>= 7.0.50~),
+ dh-python,
+ python3-all-dev,
+ python3-pip,
  python3-cracklib,
  python3-setuptools
 Standards-Version: 3.8.4
