@@ -2,10 +2,10 @@
 NAME = python-asciigraph
 
 # Version
-VERSION = 1.4.1
+VERSION = 1.5.2
 
 # Revision number 
-RELEASE = 2
+RELEASE = 1
 
 # URL of the project 
 URL=https://github.com/kakwa/py-ascii-graph
