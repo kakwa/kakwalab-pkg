@@ -7,7 +7,7 @@ Build-Depends:
  rsync,
  cmake,
  libssl-dev,
- libcivetweb,
+ libcivetweb1,
  libcivetweb-dev
 Standards-Version: 3.8.4
 Homepage: @URL@ 
@@ -15,6 +15,6 @@ X-Python-Version: >= 2.5
 
 Package: @NAME@
 Architecture: amd64 i386 powerpc armhf
-Depends: ${misc:Depends}, libcivetweb
+Depends: ${misc:Depends}, libcivetweb1
 Description: @SUMMARY@ 
  @DESCRIPTION@ 
