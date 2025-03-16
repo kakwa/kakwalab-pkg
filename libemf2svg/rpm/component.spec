@@ -1,59 +1,94 @@
+#
+# spec file for package libemf2svg
+#
+# Copyright (c) 2020 SUSE LLC
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+
+%define soversion 1
 %define pkgname @NAME@
 
-Name: %{pkgname}
-Version: @VERSION@
-Release: @RELEASE@%{?dist}
-Source: %{pkgname}-%{version}.tar.gz
-URL: @URL@ 
-Vendor: @MAINTAINER@
-License: @LICENSE@
-Group: System/Servers
-Summary: @SUMMARY@ 
-BuildRoot: %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
-BuildRequires: cmake, libpng-devel, clang, freetype-devel, fontconfig-devel
-Requires: libpng, fontconfig, freetype
+Name:           %{pkgname}
+Version:        @VERSION@
+Release:        @RELEASE@%{?dist}
+Source:         %{pkgname}-%{version}.tar.gz
+URL:            @URL@
+Vendor:         @MAINTAINER@
+Summary:        EMF (Enhanced Metafile) to SVG conversion library
+License:        GPL-2.0-only
+Group:          Productivity/Graphics/Convertors
+BuildRoot:      %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
+BuildRequires:  cmake
+BuildRequires:  fontconfig-devel
+BuildRequires:  freetype-devel
+BuildRequires:  gcc-c++
+BuildRequires:  libpng-devel
 
 %description
-@DESCRIPTION@
+Library for converting Enhanced Metafile (EMF and EMF+) files to the
+SVG format. It can be used for conversion of standalone EMF files,
+but more typically for files embedded in other file formats, e.g.
+Visio drawings.
+
+%package -n %{name}%{soversion}
+Summary:        EMF (Enhanced Metafile) to SVG conversion library
+Group:          System/Libraries
+
+%description -n %{name}%{soversion}
+Library for converting Enhanced Metafile (EMF and EMF+) files to the
+SVG format. It can be used for conversion of standalone EMF files,
+but more typically for files embedded in other file formats, e.g.
+Visio drawings.
 
 %package devel
-Summary: @SUMMARY@, headers
-Requires: @NAME@
-%description devel
-@DESCRIPTION@, headers
+Summary:        Development files for applications which will use libemf2svg
+Group:          Development/Libraries/C and C++
+Requires:       %{name}%{soversion} = %{version}
 
-%package conv
-Summary: @SUMMARY@, command line converter 
-Requires: @NAME@
-%description conv
-@DESCRIPTION@, command line converter
+%description devel
+The %{name}-devel package includes the header files, libraries,
+configuration files and development tools necessary for compiling and
+linking programs which will convert EMF files to SVG.
+
+%package -n emf2svg-conv
+Summary:        EMF to SVG converter
+Group:          Productivity/Graphics/Convertors
+
+%description -n emf2svg-conv
+Tool to convert files in EMF format to SVG
 
 %prep
-%setup -q -n %{pkgname}-%{version}
+%setup -q
+
+%build
+%cmake -DCMAKE_SKIP_RPATH=TRUE
+%cmake_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%cmake .
-make install DESTDIR=$RPM_BUILD_ROOT
+%cmake_install
 
-%post
-true
+%post -n %{name}%{soversion} -p /sbin/ldconfig
+%postun -n %{name}%{soversion} -p /sbin/ldconfig
 
-%preun
-true
-
-%clean
-rm -rf \$RPM_BUILD_ROOT
-
-%files
-%defattr(644, root, root, 755)
-/usr/%{_lib}/*
+%files -n %{name}%{soversion}
+%doc README.md
+%license LICENSE
+%{_libdir}/libemf2svg*so.*
 
 %files devel
-/usr/include/*.h
+%{_libdir}/libemf2svg*so
+%{_includedir}/*.h
 
-%files conv
-%attr(755, root, root)/usr/bin/*
+%files -n emf2svg-conv
+%{_bindir}/emf2svg-conv
 
 %changelog
 * Wed Feb 01 2013 @MAINTAINER@ <@MAINTAINER_EMAIL@> 0.0.1-1
