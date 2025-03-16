@@ -10,8 +10,8 @@ License: @LICENSE@
 Group: System/Servers
 Summary: @SUMMARY@
 BuildRoot: %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
-BuildRequires: libemf2svg-devel, libwmf-devel, libxml2-devel, libvisio-devel, librevenge-devel, cmake, gcc, freetype-devel
-Requires: libemf2svg, libwmf, libxml2, libvisio, librevenge
+BuildRequires: libemf2svg-devel, libwmf-devel, libxml2-devel, libvisio-devel, librevenge-devel, cmake, gcc, freetype-devel, gcc-c++
+Requires: libemf2svg1, libwmf, libxml2, libvisio, librevenge
 
 %description
 @DESCRIPTION@
@@ -29,19 +29,15 @@ Summary: @SUMMARY@, command line converter
 %prep
 %setup -q -n %{pkgname}-%{version}
 
+%build
+%cmake -DCMAKE_SKIP_RPATH=TRUE
+%cmake_build
+
 %install
-rm -rf $RPM_BUILD_ROOT
-%cmake . -DUNSAFE_FILENAME=ON
-make install DESTDIR=$RPM_BUILD_ROOT
+%cmake_install
 
-%post
-true
-
-%preun
-true
-
-%clean
-rm -rf \$RPM_BUILD_ROOT
+%post -n %{pkgname} -p /sbin/ldconfig
+%postun -n %{pkgname} -p /sbin/ldconfig
 
 %files
 %defattr(644, root, root, 755)
