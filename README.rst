@@ -10,7 +10,7 @@ Pakste
 
 .. image:: https://raw.githubusercontent.com/kakwa/pakste/refs/heads/main/common/docs/assets/pakste_w.svg
    :alt: Logo
-   :width: 200px
+   :width: 160px
    :align: left
 
 
