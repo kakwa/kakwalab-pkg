@@ -11,8 +11,11 @@ Package Initialization
     # Initialize a new package
     ./common/init_pkg.sh -n <PKG_NAME>
 
-Common Targets
---------------
+Makefile Targets
+----------------
+
+Miscellaneous Targets
+~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -27,6 +30,10 @@ Common Targets
    * - ``clean``
      - package & repo/root
      - Remove all build artifacts and directories
+   * - ``github_matrix``
+     - repo/root
+     - Output the Github Action Matrix (json)
+
 
 .. list-table::
    :header-rows: 1
@@ -40,7 +47,7 @@ Common Targets
      - When set to ``true``, keeps downloaded sources during clean
 
 Package Building Targets
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -80,7 +87,7 @@ Package Building Targets
      - Target Architecture (e.g., arm64, riscv64, amd64)
 
 Repository Targets
-------------------
+~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
