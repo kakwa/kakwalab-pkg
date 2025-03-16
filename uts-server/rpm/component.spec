@@ -15,9 +15,10 @@ License: @LICENSE@
 Group: System/Servers
 Summary: @SUMMARY@ 
 BuildRoot: %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
-#BuildArch: noarch
-BuildRequires: cmake, openssl-devel, libcivetweb-devel
-Requires: openssl-libs, libcivetweb
+BuildRequires: cmake, openssl-devel, civetweb-devel, gcc, gcc-c++
+BuildRequires: systemd-rpm-macros
+Requires: openssl-libs, civetweb
+Requires: systemd
 
 %description
 @DESCRIPTION@
@@ -26,16 +27,19 @@ Requires: openssl-libs, libcivetweb
 
 %setup -q -n %{pkgname}-%{version}
 
-%install
+%build
+%cmake -DCMAKE_SKIP_RPATH=TRUE
+%cmake_build
 
-rm -rf $RPM_BUILD_ROOT
-cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix}
-make install DESTDIR=$RPM_BUILD_ROOT
-install -D -m 0640 %{SOURCE4} $RPM_BUILD_ROOT/etc/uts-server/uts-server.cnf
+%install
+%cmake_install
 
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d/
 mkdir -p %{buildroot}/etc/sysconfig/
+mkdir -p %{buildroot}/etc/uts-server
+
+install -D -m0640 %{SOURCE4} %{buildroot}/etc/uts-server/uts-server.cnf
 install -pm644 %{SOURCE1} %{buildroot}/etc/sysconfig/
 install -pm644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/
 install -pm644 %{SOURCE3} %{buildroot}%{_unitdir}
@@ -43,16 +47,19 @@ install -pm644 %{SOURCE3} %{buildroot}%{_unitdir}
 %pre
 
 if ! getent passwd uts-server > /dev/null ; then
-  adduser --system --home /var/lib/uts-server \
+    adduser --system --home /var/lib/uts-server \
     --no-create-home --shell /sbin/nologin uts-server
 fi
 
+
 %post
-systemctl daemon-reload
-systemd-tmpfiles --create /usr/lib/tmpfiles.d/uts-server.conf
+%systemd_post uts-server.service
 
 %preun
-true
+%systemd_preun ust-server.service
+
+%postun
+%systemd_postun_with_restart uts-server.service
 
 %clean
 rm -rf \$RPM_BUILD_ROOT
