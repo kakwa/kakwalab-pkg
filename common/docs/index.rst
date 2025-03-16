@@ -11,5 +11,5 @@ Table Of Content
    getting_started
    building_package
    building_repo
-   targets
    troubleshooting
+   references
