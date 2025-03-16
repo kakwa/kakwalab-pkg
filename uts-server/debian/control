@@ -14,7 +14,7 @@ Homepage: @URL@
 X-Python-Version: >= 2.5
 
 Package: @NAME@
-Architecture: amd64 i386 powerpc armhf
+Architecture: any
 Depends: ${misc:Depends}, libcivetweb1
 Description: @SUMMARY@ 
  @DESCRIPTION@ 
