@@ -1,0 +1,26 @@
+Source: @NAME@
+Section: misc
+Priority: extra
+Maintainer: @MAINTAINER@ <@MAINTAINER_EMAIL@>
+Build-Depends:
+ debhelper (>= 7.0.50~),
+ dh-python,
+ python3-all-dev,
+ python3-setuptools,
+ python3-pytest,
+Standards-Version: 3.8.4
+Homepage: @URL@ 
+X-Python-Version: >= 2.5
+X-Python3-Version: >= 3.3
+
+Package: python3-asciigraph
+Architecture: all
+Depends: ${misc:Depends}, python3
+Description: @SUMMARY@ 
+ @DESCRIPTION@ 
+
+Package: asciigraph
+Architecture: all
+Depends: ${misc:Depends}, python3-asciigraph
+Description: @SUMMARY@ 
+ @DESCRIPTION@ 

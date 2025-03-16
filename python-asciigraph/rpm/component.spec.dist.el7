@@ -1,0 +1,51 @@
+%define pkgname @NAME@ 
+%global modname asciigraph
+
+Name: %{pkgname}
+Summary: @SUMMARY@
+Version: @VERSION@
+Release: @RELEASE@%{?dist}
+Source: %{pkgname}-%{version}.tar.gz
+URL: @URL@ 
+Vendor: @MAINTAINER@
+License: @LICENSE@
+Group: System/Servers
+BuildArch: noarch
+BuildRequires:  python-devel
+BuildRequires:  python-setuptools
+
+BuildRoot: %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
+
+
+%description
+@DESCRIPTION@
+
+%package -n %{modname}
+Summary: @SUMMARY@, executable
+Requires: python3-%{modname}
+
+%description -n %{modname}
+@DESCRIPTION@, executable
+
+%prep
+%autosetup -n %{pkgname}-%{version}
+
+%build
+%py2_build
+
+%install
+%py2_install
+
+%clean
+rm -rf \$RPM_BUILD_ROOT
+
+%files
+%{python2_sitelib}/ascii_graph/
+%{python2_sitelib}/ascii_graph-%{version}-*.egg-info/
+
+%files -n %{modname}
+%attr(755,-,-)/usr/bin/asciigraph
+
+%changelog
+* Wed Feb 01 2013 @MAINTAINER@ <@MAINTAINER_EMAIL@> 0.0.1-1
+- initial Version initiale
