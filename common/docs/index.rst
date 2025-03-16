@@ -13,6 +13,3 @@ Table Of Content
    building_repo
    targets
    troubleshooting
-
-.. include:: ../../README.rst
-    :start-after: .. quick_ref
