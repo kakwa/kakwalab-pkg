@@ -28,7 +28,7 @@ Description: @SUMMARY@, headers
  @DESCRIPTION@, headers
 
 Package: @NAME@-dev
-Architecture: amd64 i386
+Architecture: any
 Depends: @NAME@
 Description: @SUMMARY@, headers
  @DESCRIPTION@, headers
