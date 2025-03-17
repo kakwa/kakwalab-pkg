@@ -7,6 +7,9 @@ Pakste
     :target: https://kakwa.github.io/pakste/
     :alt: Documentation
 
+.. image:: https://github.com/kakwa/pakste/actions/workflows/build-test.yml/badge.svg
+    :target: https://github.com/kakwa/pakste/actions/workflows/build-test.yml
+    :alt: Tests
 
 .. image:: https://raw.githubusercontent.com/kakwa/pakste/refs/heads/main/common/docs/assets/pakste_w.svg
    :alt: Logo
