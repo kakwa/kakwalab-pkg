@@ -2,6 +2,8 @@
 
 # kakwalab-pkg
 
+Collection of packages of my personal projects.
+
 The `.deb`/`.rpm` repositories are available at the following url: https://kakwa.github.io/kakwalab-pkg/
 
 ## Ubuntu/Debian
