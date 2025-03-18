@@ -15,7 +15,7 @@ Group: System/Servers
 Summary: @SUMMARY@ 
 BuildRoot: %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
 BuildArch: noarch
-Requires: python3-cherrypy, python3-ldap, python3-pyyaml, python3-mako
+Requires: python3-cherrypy, python3-ldap, python3-pyyaml, python3-mako, systemd
 BuildRequires: python3-setuptools, python3-devel
 
 %description
