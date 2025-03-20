@@ -49,7 +49,7 @@ else
 fi
 
 # Create the repository file
-cat << EOF | ${SUDO} tee /etc/yum.repos.d/kakwalab-pkg.repo
+cat << EOF | ${SUDO} tee -a /etc/dnf/dnf.conf
 [kakwalab-pkg]
 name=kakwalab-pkg
 baseurl=https://kakwa.github.io/kakwalab-pkg/rpm.${DISTRO_PREFIX}\$releasever.\$basearch/\$releasever/\$basearch/
