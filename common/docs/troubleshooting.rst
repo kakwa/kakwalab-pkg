@@ -34,6 +34,43 @@ If you want to avoid password promt add the following line to the sudoers config
     <BUILD_USER> ALL=(ALL) NOPASSWD: /usr/bin/mkdir -p /var/cache/pbuilder/*
     <BUILD_USER> ALL=(ALL) NOPASSWD: /usr/bin/rm -rf -- /var/cache/pbuilder/*
 
+Adding Vulnerability Monitoring
+-------------------------------
+
+You can scan for vulnerabilities using the following target:
+
+.. sourcecode:: bash
+
+    make vulncheck
+
+This target works at the package and root level (check all packages).
+
+CPE & filter parameters can be tweaked in the package ``Makefile``:
+
+.. sourcecode:: make
+
+    # NIST Vulnerability Database CPE pattern
+    NVD_CPE_PATTERN=cpe:2.3:*:*freecade:*
+    
+    # Comma separated list of CVEs to ignore
+    NVD_IGNORE_CVES=CVE-2023-1234,CVE-2023-5678
+    
+    # Minimum Version for CVEs, defaults to $(VERSION)
+    NVD_MIN_VERSION=0
+
+Visit https://kakwa.github.io/cpe-search/ to find filters.
+
+To validate/troubleshoot (assuming the package has past CVEs):
+
+.. sourcecode:: bash
+
+    make vulncheck NVD_MIN_VERSION=0 NVD_IGNORE_CVES= --trace
+
+To enable daily vulnerability check Github Action:
+
+1. Go to repository Settings → Secrets and variables → Actions → Variables
+2. Create a new variable named ``NVD_CHECK_ENABLED`` with value ``true``
+
 Internet Access During Build
 ----------------------------
 
