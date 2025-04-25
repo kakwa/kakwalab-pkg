@@ -13,7 +13,7 @@ URL:            https://github.com/wows-tools/wows-depack
 BuildRoot:      %{_tmppath}/%{pkgname}-%{zone}-%{version}-%{release}-build
 BuildRequires:  cmake
 BuildRequires:  zlib-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  clang
 BuildRequires:  gcc
 BuildRequires:  make
@@ -32,7 +32,7 @@ World of Warships game resources from the command line.
 
 %package -n lib%{name}%{soversion}
 Summary:  Library for unpacking World of Warships resources
-Requires: zlib, pcre
+Requires: zlib, pcre2
 
 %description -n lib%{name}%{soversion}
 Shared library for unpacking World of Warships game resources.
