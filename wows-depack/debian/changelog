@@ -1,0 +1,6 @@
+wows-depack (0.2.0-1) unstable; urgency=medium
+
+  * Initial release.
+  * Package wows-depack 0.2.0.
+
+ -- Your Name <your.email@example.com>  $(date -R) 

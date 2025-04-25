@@ -1,0 +1,37 @@
+Source: wows-depack
+Section: utils
+Priority: optional
+Maintainer: Your Name <your.email@example.com>
+Build-Depends: debhelper-compat (= 13),
+               cmake,
+               zlib1g-dev,
+               libpcre3-dev,
+               clang
+Standards-Version: 4.6.1
+Homepage: https://github.com/wows-tools/wows-depack
+
+Package: wows-depack-cli
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libwows-depack0 (= ${binary:Version})
+Description: Command-line interface for wows-depack
+ Command-line interface for the wows-depack library, allowing users to unpack
+ World of Warships game resources from the command line.
+
+Package: libwows-depack0
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         zlib1g,
+         libpcre3
+Description: Library for unpacking World of Warships resources
+ Shared library for unpacking World of Warships game resources.
+ This package contains the runtime library.
+
+Package: libwows-depack-dev
+Architecture: any
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libwows-depack0 (= ${binary:Version})
+Description: Development files for wows-depack
+ Development files for the wows-depack library, including header files
+ and documentation needed for developing applications that use wows-depack. 
