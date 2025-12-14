@@ -10,6 +10,8 @@ Build-Depends:
  libpng-dev,
  libfontconfig1-dev,
  libfreetype6-dev,
+ libuemf-dev,
+ libxml2-dev,
  rsync
 Standards-Version: 3.8.4
 Homepage: @URL@ 
@@ -23,7 +25,7 @@ Description: @SUMMARY@, command line converter
 
 Package: @NAME@
 Architecture: amd64 i386
-Depends: ${misc:Depends}, libpng16-16, libfontconfig1, libfreetype6
+Depends: ${misc:Depends}, libpng16-16, libfontconfig1, libfreetype6, libuemf0, libxml2
 Description: @SUMMARY@, headers
  @DESCRIPTION@, headers
 
