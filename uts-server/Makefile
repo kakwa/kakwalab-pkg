@@ -2,7 +2,7 @@
 NAME = uts-server
 
 # Version
-VERSION = 0.2.1
+VERSION = 0.2.2
 
 # Revision number 
 RELEASE = 1
