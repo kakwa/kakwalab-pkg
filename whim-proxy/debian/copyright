@@ -1,0 +1,26 @@
+This package was packaged for Debian by:
+
+    @MAINTAINER@ <@MAINTAINER_EMAIL@>
+
+The upstream source was obtained from:
+
+    @URL@/archive/refs/tags/0.1.9.tar.gz
+
+Upstream Author(s):
+
+    kakwa <https://github.com/kakwa>
+
+Copyright:
+
+    Copyright (c) kakwa
+
+License:
+
+    MIT License
+    On Debian systems, the full text of the MIT license can be found
+    in /usr/share/common-licenses/MIT.
+
+The Debian packaging is:
+
+    Copyright (C) 2026 @MAINTAINER@ <@MAINTAINER_EMAIL@>
+    and is licensed under the same terms as the packaged work.

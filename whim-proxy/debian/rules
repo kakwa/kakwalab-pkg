@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Go module build
+export GOPROXY = https://proxy.golang.org
+export GOSUMDB = sum.golang.org
+export GO111MODULE = on
+export CGO_ENABLED = 0
+
+DEST_SERVER = $$(pwd)/debian/whim-server
+DEST_CLIENT = $$(pwd)/debian/whim-client
+
+# For chroot builds without $HOME
+ifeq ($(HOME),/nonexistent)
+export HOME = /build
+endif
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cp logo.svg internal/web/static/favicon.svg
+	mkdir -p internal/web/clients
+	for pair in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64 windows/arm64; do \
+		os=$$(echo $$pair | cut -d/ -f1); \
+		arch=$$(echo $$pair | cut -d/ -f2); \
+		ext=""; \
+		if [ "$$os" = "windows" ]; then ext=".exe"; fi; \
+		GOOS=$$os GOARCH=$$arch go build -ldflags="-s -w" -o internal/web/clients/whim-client-$$os-$$arch$$ext ./cmd/client; \
+	done
+	GOTOOLCHAIN=auto go build -ldflags="-s -w" -o whim-server ./cmd/server
+	GOTOOLCHAIN=auto go build -ldflags="-s -w" -o whim-client ./cmd/client
+
+override_dh_auto_install:
+	mkdir -p $(DEST_SERVER)/usr/bin
+	mkdir -p $(DEST_CLIENT)/usr/bin
+	install -m 755 whim-server $(DEST_SERVER)/usr/bin/whim-server
+	install -m 755 whim-client $(DEST_CLIENT)/usr/bin/whim-client
+
+override_dh_installsystemd:
+	dh_installsystemd -p whim-server --no-enable --no-start
+
+override_dh_auto_test:

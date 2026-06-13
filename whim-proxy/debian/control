@@ -1,0 +1,27 @@
+Source: @NAME@
+Section: net
+Priority: optional
+Maintainer: @MAINTAINER@ <@MAINTAINER_EMAIL@>
+Build-Depends:
+ debhelper (>= 12~),
+ make,
+ golang-go (>= 2:1.21),
+ golang-src (>= 2:1.21)
+Standards-Version: 4.6.2
+Homepage: @URL@
+
+Package: whim-server
+Architecture: any
+Depends: ${misc:Depends}
+Description: @SUMMARY@ - server
+ @DESCRIPTION@
+ .
+ This package provides the whim-server binary and systemd service unit.
+
+Package: whim-client
+Architecture: any
+Depends: ${misc:Depends}
+Description: @SUMMARY@ - client
+ @DESCRIPTION@
+ .
+ This package provides the whim-client binary for local webhook relay.

@@ -1,0 +1,25 @@
+[Unit]
+Description=whim-proxy webhook relay server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/whim-server --addr :9000
+Restart=on-failure
+RestartSec=5s
+
+User=whim
+Group=whim
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=whim-server
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target
