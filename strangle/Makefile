@@ -22,6 +22,9 @@ LICENSE = GPLv3
 # Upstream git revision to build (no release tag for 0.0.0 yet)
 REVISION = 10c616f0b1f6f611a1df29482c4b2419aebf706d
 
+# Only build on EL 9+, Debian 13+ and Ubuntu 26.04+
+SKIP = <:el:9 <:deb:13 <:ubu:26.04
+
 # Allow network for Go module/toolchain and npm downloads
 COWBUILD_BUILD_ADDITIONAL_ARGS = --use-network yes
 MOCK_BUILD_ADDITIONAL_ARGS = --enable-network
