@@ -65,15 +65,33 @@ jobs:
           fetch-depth: 0
 
       - name: Install GPG Key
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
         run: |
-          if [[ -n "${{ secrets.GPG_SIGNING_KEY }}" ]]; then
-            echo "${{ secrets.GPG_SIGNING_KEY }}" | gpg --import
-          else
+          if [[ -z "$GPG_SIGNING_KEY" ]]; then
             echo "Error: GPG_SIGNING_KEY is not set"
             echo "please set it in the repository settings"
             echo "(Secrets & variables -> Actions -> New Repository Secret)"
             exit 1
           fi
+
+          # Pass the key via stdin using printf (not echo) to avoid shell
+          # interpretation of backslashes/escape sequences. Batch mode and
+          # loopback pinentry prevent gpg from prompting on headless runners.
+          # A secret may contain several keys; gpg import can report
+          # "Bad secret key" for one of them while still importing the others,
+          # and exits non-zero. Don't fail the step in that case - verify below
+          # that at least one usable secret key is present instead.
+          printf '%s\n' "$GPG_SIGNING_KEY" | \
+            gpg --batch --yes --no-tty \
+                --pinentry-mode loopback \
+                --import || echo "Warning: gpg reported errors during import"
+
+          if ! gpg --list-secret-keys | grep -q '^sec'; then
+            echo "Error: no usable secret key was imported"
+            exit 1
+          fi
+          gpg --list-secret-keys --keyid-format LONG
 
       - name: Install Dependencies
         run: |
