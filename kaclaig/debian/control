@@ -1,0 +1,19 @@
+Source: @NAME@
+Section: devel
+Priority: optional
+Maintainer: @MAINTAINER@ <@MAINTAINER_EMAIL@>
+Build-Depends:
+ debhelper (>= 12~),
+ make,
+ golang-go (>= 2:1.21),
+ git
+Standards-Version: 4.6.2
+Homepage: @URL@
+
+Package: @NAME@
+Architecture: any
+Depends: ${misc:Depends}, git
+Description: @SUMMARY@
+ @DESCRIPTION@
+ .
+ This package provides the kaclaig CLI and its man page.
