@@ -20,7 +20,7 @@ DESCRIPTION = strangle applies Ansible playbooks on a schedule and reports resul
 LICENSE = GPLv3
 
 # Upstream git revision to build (no release tag for 0.0.0 yet)
-REVISION = 10c616f0b1f6f611a1df29482c4b2419aebf706d
+REVISION = 4e6ac63c12ef52b22b834769dfcc0e54d7b4a438
 
 # Only build on EL 9+, Debian 13+ and Ubuntu 26.04+
 SKIP = <:el:9 <:deb:13 <:ubu:26.04
