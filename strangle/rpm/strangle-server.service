@@ -1,0 +1,32 @@
+[Unit]
+Description=strangle - scheduled Ansible playbook runner
+Documentation=https://github.com/kakwa/strangle
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/strangle -s /etc/strangle/server.yml -c /etc/strangle/collection.yml
+Restart=on-failure
+RestartSec=5s
+
+User=strangle
+Group=strangle
+StateDirectory=strangle
+WorkingDirectory=/var/lib/strangle
+
+# The embedded CPython/Ansible interpreter needs a UTF-8 locale and a
+# writable home for its temporary directories.
+Environment=LANG=C.UTF-8
+Environment=LC_ALL=C.UTF-8
+Environment=HOME=/var/lib/strangle
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=strangle
+
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

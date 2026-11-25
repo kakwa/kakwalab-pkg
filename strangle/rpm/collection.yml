@@ -1,0 +1,17 @@
+# Ansible projects (targets) managed by strangle.
+# Loaded by default; override with: strangle -c /etc/strangle/collection.yml
+#
+# Each target is a directory containing its own strangle.yml with named
+# playbooks. Git-backed targets are cloned into `path` and pinned to the
+# tracked ref; checkouts should live under /var/lib/strangle.
+#
+# Example:
+#
+# targets:
+#   - name: homelab
+#     path: /var/lib/strangle/homelab
+#     git:
+#       url: https://github.com/kakwa/home.tf.git
+#       branch: main
+
+targets: []

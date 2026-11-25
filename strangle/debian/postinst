@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        if ! getent passwd strangle > /dev/null; then
+            adduser --system --group --quiet --home /var/lib/strangle \
+                --no-create-home --disabled-login strangle
+        fi
+        install -d -o strangle -g strangle -m 0750 /var/lib/strangle
+    ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

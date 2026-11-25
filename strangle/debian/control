@@ -1,0 +1,27 @@
+Source: @NAME@
+Section: net
+Priority: optional
+Maintainer: @MAINTAINER@ <@MAINTAINER_EMAIL@>
+Build-Depends:
+ debhelper (>= 12~),
+ make,
+ golang-go,
+ golang-src,
+ python3-dev,
+ pkg-config,
+ nodejs,
+ npm,
+ ansible
+Standards-Version: 4.6.2
+Homepage: @URL@
+
+Package: @NAME@
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, adduser, ansible, python3
+Description: @SUMMARY@
+ @DESCRIPTION@
+ .
+ This package provides the strangle server, its worker subcommand, a systemd
+ service running as the strangle user, configuration in /etc/strangle, example
+ target configurations under /usr/share/doc/strangle-server/examples and a
+ checkout directory in /var/lib/strangle.

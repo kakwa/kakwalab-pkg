@@ -1,0 +1,23 @@
+# strangle process-level configuration.
+# Loaded by default; override with: strangle -s /etc/strangle/server.yml
+
+# HTTP listen address.
+listen_addr: ":8080"
+
+# Log level: debug, info, warn or error.
+log_level: info
+
+# How often a full cycle over every configured target is run.
+interval: 15m
+
+# Number of worker child processes (each owns one embedded Ansible interpreter).
+workers: 2
+
+# Without a DSN, run history is kept in memory and lost on restart.
+# Uncomment and point at your PostgreSQL instance to persist run history.
+# database:
+#   dsn: postgres://strangle@localhost:5432/strangle
+
+# Bearer token required by POST /api/sync (git-backed collection webhook).
+# auth:
+#   token: change-me

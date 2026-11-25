@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Ansible's embedded interpreter requires a UTF-8 locale (as in upstream CI).
+export LANG = C.UTF-8
+export LC_ALL = C.UTF-8
+
+# Go modules and the Go 1.27 toolchain (go.mod) are fetched at build time.
+export GOPROXY = https://proxy.golang.org
+export GOSUMDB = sum.golang.org
+export GO111MODULE = on
+export GOTOOLCHAIN = auto
+
+# go.nhat.io/cpy/v3 asks pkg-config for python-3.12-embed; the upstream helper
+# maps that to the python3-embed package shipped by the distribution.
+export PKG_CONFIG = $(CURDIR)/scripts/pkg-config-cpy
+
+# Keep the npm cache inside the build tree (chroots may not have a usable $HOME).
+export npm_config_cache = $(CURDIR)/.npm-cache
+
+DEST = $$(pwd)/debian/@NAME@
+
+# For chroot builds without $HOME
+ifeq ($(HOME),/nonexistent)
+export HOME = /build
+endif
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	rm -f strangle
+	rm -rf .home
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	cd web && npm ci --no-audit --no-fund && npm run build
+	go build -ldflags="-s -w" -o strangle ./cmd/strangle
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	mkdir -p .home
+	HOME=$(CURDIR)/.home ANSIBLE_REMOTE_TMP=/tmp/.ansible/tmp go test ./...
+endif
+
+override_dh_auto_install:
+	mkdir -p $(DEST)/usr/bin
+	mkdir -p $(DEST)/etc/strangle
+	mkdir -p $(DEST)/var/lib/strangle
+	mkdir -p $(DEST)/usr/share/doc/@NAME@/examples/demo
+	install -m 755 strangle $(DEST)/usr/bin/strangle
+	install -m 644 debian/config/server.yml $(DEST)/etc/strangle/server.yml
+	install -m 644 debian/config/collection.yml $(DEST)/etc/strangle/collection.yml
+	install -m 644 config/strangle.yml $(DEST)/usr/share/doc/@NAME@/examples/strangle.yml.example
+	install -m 644 demo/strangle.yml demo/playbook.yml demo/inventory.ini $(DEST)/usr/share/doc/@NAME@/examples/demo/

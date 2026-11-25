@@ -1,0 +1,5 @@
+strangle-server (0.0.0-1) unstable; urgency=low
+
+  * Package strangle-server 0.0.0 from git revision d375244981df5180364485eb988eb87ca61d25d9.
+
+ -- @MAINTAINER@ <@MAINTAINER_EMAIL@>  Wed, 25 Nov 2026 12:00:00 +0000

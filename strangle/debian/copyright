@@ -1,0 +1,26 @@
+This package was packaged for Debian by:
+
+    @MAINTAINER@ <@MAINTAINER_EMAIL@>
+
+The upstream source was obtained from:
+
+    @URL@ (git revision d375244981df5180364485eb988eb87ca61d25d9)
+
+Upstream Author(s):
+
+    Carpentier Pierre-Francois <https://github.com/kakwa>
+
+Copyright:
+
+    Copyright (c) 2026 Carpentier Pierre-Francois
+
+License:
+
+    GNU General Public License, version 3 (GPL-3+)
+    On Debian systems, the full text of the GNU General Public License
+    version 3 can be found in /usr/share/common-licenses/GPL-3.
+
+The Debian packaging is:
+
+    Copyright (C) 2026 @MAINTAINER@ <@MAINTAINER_EMAIL@>
+    and is licensed under the same terms as the packaged work.
